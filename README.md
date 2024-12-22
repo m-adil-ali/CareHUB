@@ -4,6 +4,8 @@
 
 CareHUB is an innovative AI-powered Clinical Medical Assistant designed to address the healthcare challenges faced by remote and rural communities. By leveraging advanced AI techniques, the system ensures timely, accurate, and context-sensitive medical recommendations. The solution bridges the gap between patients and qualified healthcare professionals, enabling better healthcare outcomes and improving patient safety in underserved regions.
 
+![image](https://github.com/user-attachments/assets/858dc218-512f-40b0-bc13-b7166d47750b)
+
 ---
 
 ## Key Features
@@ -128,12 +130,6 @@ CareHUB is an innovative AI-powered Clinical Medical Assistant designed to addre
 ## Contributing
 
 We welcome contributions to enhance CareHUB! Feel free to fork the repository, create issues, or submit pull requests. Ensure you follow the contribution guidelines.
-
----
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
 
 ---
 
