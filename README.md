@@ -95,7 +95,7 @@ CareHUB is an innovative AI-powered Clinical Medical Assistant designed to addre
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-repo/CareHUB.git
+   git clone https://github.com/m-adil-ali/CareHUB.git
    cd CareHUB
    ```
 
@@ -141,8 +141,8 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 
 For more information, feel free to reach out:
 
-- **Email:** [mail](mailto\muhamad.adil.ale@gmail.com)
-- **GitHub:** [GitHub](https://github.com/m-adil-ali)
+- **Email:** [mail](mailto:muhamad.adil.ale@gmail.com)
+- **GitHub:** [m-adil-ali](https://github.com/m-adil-ali)
 
 ---
 
