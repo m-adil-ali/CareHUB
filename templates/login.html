@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+
+    <style>
+        /* Add background image */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url('{{ url_for('static', filename='doctor_login.jpg') }}'); /* Path to your background image */
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            height: 100vh;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: white;
+            backdrop-filter: blur(10px); /* Apply blur effect */
+        }
+
+        .navbar-brand img {
+            max-height: 40px; /* Adjust logo size */
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            color: black;
+        }
+
+        .navbar-light .navbar-nav .nav-link:hover {
+            background-color: #32b541;
+            color: white;
+            border-radius: 10px 0px 10px 0px;
+
+        }
+
+        /* Hover effect for buttons */
+        button:hover {
+            background: linear-gradient(135deg, #32b541, #0e1a22);
+            color: white;
+            transition: background 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+        <div class="container-fluid">
+           <a class="navbar-brand" href="/">
+                <img class="logo" src="{{ url_for('static', filename='chat_carehub.png') }}" alt="Carehub Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="\">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Doctor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" onclick="showApplicationForm(); return false;" id="new-application">New
+                            Application</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showApplicationForm(); return false;" id="application-status">Application
+                            Status</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h2>Doctor Login</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Login</button>
+                        </form>
+                        {% if error %}
+                        <div class="alert alert-danger mt-3">{{ error }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        &copy; 2024 CareHUB Medical Assistant. All rights reserved.
+    </footer>
+
+    <script>
+        // Show New Application Form
+        function showApplicationForm() {
+            const formHtml = `
+                <div class="form-container">
+                    <h2>New Application</h2>
+                    <form action="/application-status" method="POST">
+                        <label for="patient-name">Patient Name:</label>
+                        <input type="text" id="patient-name" name="name" required><br><br>
+
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" id="dob" name="dob" required><br><br>
+
+                        <label for="gender">Gender:</label>
+                        <select id="gender" name="gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select><br><br>
+
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            `;
+
+            const contentDiv = document.querySelector('.content');
+            contentDiv.innerHTML = formHtml;
+        }
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

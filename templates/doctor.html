@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor's To-Do List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            background-image: url("{{ url_for('static', filename='doctor_todo.png') }}");
+            min-height: 100vh;
+            overflow: hidden;
+            background-color: #f4f7f6;
+            flex-direction: column;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            padding: 10px;
+            font-size: 20px;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: rgba(255, 255, 255, 0.1); /* Transparent background */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            border-right: 1px solid #ddd;
+            padding: 20px;
+            position: fixed;
+            top: 75px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            color: black;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .patient-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .patient-list li {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #e0f7fa;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .patient-list li:hover {
+            background-color: #32b541;
+            color: white;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 30px;
+            display: none;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 20px;
+            margin-left: 280px; /* Add margin for sidebar */
+        }
+
+        .text-box-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .text-box-container textarea {
+            flex-grow: 1;
+            width: 100%;
+            height: 500px; /* Adjust the height as needed */
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            resize: none;
+            outline: none;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease;
+        }
+
+
+        .text-box-container textarea:disabled {
+            background-color: #e9e9e9;
+            cursor: not-allowed;
+        }
+
+        .button-group {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .button-group button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .button-group .edit-btn {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .button-group .accept-btn {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .button-group button:hover {
+            opacity: 0.8;
+        }
+
+        .button-group .accept-btn {
+            background-color: #00796b;
+        }
+
+        .button-group .edit-btn {
+            background-color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img class="logo" src="{{ url_for('static', filename='chat_carehub.png') }}" alt="Carehub Logo">
+            </a>
+        </div>
+    </nav>
+
+    <section class="list-menu">
+        <div class="sidebar">
+            <h2>Doctor's To-Do</h2>
+            <ul class="patient-list" id="patient-list"></ul>
+        </div>
+
+        <div class="content" id="content">
+            <div class="text-box-container">
+                <textarea id="medication-text" disabled></textarea>
+                <div class="row button-group">
+                    <button class="col-5 edit-btn" id="edit-btn">Edit</button>
+                    <button class="col-5 accept-btn" id="accept-btn">Accept</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        &copy; 2024 CareHUB Medical Assistant. All rights reserved.
+    </footer>
+
+    <script>
+        const patientList = document.getElementById("patient-list");
+        const content = document.getElementById("content");
+        const medicationText = document.getElementById("medication-text");
+        const editButton = document.getElementById("edit-btn");
+        const acceptButton = document.getElementById("accept-btn");
+
+        let currentPatientId = null;
+
+        // Fetch all patient IDs
+        async function loadPatients() {
+            const response = await fetch('/get_patients');
+            const patients = await response.json();
+            patientList.innerHTML = '';
+            patients.forEach(patient => {
+                const listItem = document.createElement("li");
+                listItem.textContent = patient.Patient_ID;
+                listItem.dataset.id = patient.Patient_ID;
+                patientList.appendChild(listItem);
+            });
+        }
+
+        // Handle patient click
+        patientList.addEventListener("click", async (e) => {
+            if (e.target.tagName === "LI") {
+                const patientId = e.target.dataset.id;
+                currentPatientId = patientId;
+
+                // Fetch patient to-do list
+                const response = await fetch(`/get_patient_todo/${patientId}`);
+                const patientData = await response.json();
+
+                if (!patientData.error) {
+                    content.style.display = 'block';
+                    medicationText.value = patientData["Doctor's_To-Do_List"];
+                    medicationText.disabled = true;
+                }
+            }
+        });
+
+        // Handle edit button click
+        editButton.addEventListener("click", () => {
+            medicationText.disabled = false;
+            medicationText.focus();
+        });
+
+        // Handle accept button click
+        acceptButton.addEventListener("click", async () => {
+            const updatedTodo = medicationText.value;
+
+            // Update to-do list in the backend
+            await fetch(`/update_todo/${currentPatientId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ todo: updatedTodo })
+            });
+
+            // Remove patient from the list
+            const patientElement = patientList.querySelector(`li[data-id="${currentPatientId}"]`);
+            if (patientElement) {
+                patientElement.remove();
+            }
+
+            // Hide the content box
+            content.style.display = 'none';
+        });
+
+        // Initial load
+        loadPatients();
+    </script>
+
+</body>
+</html>

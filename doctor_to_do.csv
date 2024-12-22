@@ -1,0 +1,37 @@
+Patient_ID,Name,Date_of_Birth,Gender,Doctor's_To-Do_List
+P.ID-54733,ahmad Ali,2002-10-02,Male,"**Doctor Short Review**
+
+**Date:** October 26, 2023
+
+**Patient Name:** Ahmad Ali
+
+**Symptoms:** Sore throat, dry cough, low-grade fever, runny nose (2 days duration, 7/10 severity).
+
+**Diagnosis:**  Likely viral upper respiratory infection (common cold or influenza).
+
+**Medication:** Panadol (Paracetamol) for fever and pain relief and Hydralin cough syrup for cough. Further investigation may be needed if symptoms worsen or persist.
+"
+P.ID-11642,Muhammad Adil Ali,2022-10-29,Male,"**Doctor Short Review**
+
+**Date:** October 26, 2023
+
+**Name:** Muhammad Adil Ali
+
+**Symptoms:** Widespread burning abdominal pain (2 days, 6/10 severity).
+
+**Diagnosis:** Abdominal Issues
+
+**Medication:**  NO-SPA Forte (Consult dosage based on patient age - 1 year old).  Consider Panadol if fever develops.
+"
+P.ID-11642,Muhammad Adil Ali,2022-10-29,Male,"**Doctor Short Review**
+
+**Date:** October 26, 2023
+
+**Name:** Muhammad Adil Ali
+
+**Symptoms:** Widespread burning abdominal pain (6/10 severity), 2 days duration.
+
+**Diagnosis:** Abdominal Issues
+
+**Medication:** NO-SPA Forte (Consider age appropriateness; consult product information for dosage and potential side effects given the patient's age.)
+"

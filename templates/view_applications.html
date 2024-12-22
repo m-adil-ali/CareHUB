@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Applications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0fff0; /* Light green background */
+        }
+
+        .navbar {
+            background-color: #98fb98; /* Pale green */
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #2f4f4f; /* Dark Slate Gray */
+            font-size: 18px;
+            margin: 0 10px;
+        }
+
+        .navbar a:hover {
+            color: #006400; /* Dark green */
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #98fb98;
+            color: #2f4f4f;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #98fb98;
+            color: #2f4f4f;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .update-btn {
+            background-color: #98fb98;
+            color: #2f4f4f;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .update-btn:hover {
+            background-color: #006400;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-brand">Medical Assistant</div>
+        <div class="navbar-links">
+            <a href="/">Home</a>
+            <a href="/doctor-login">Doctor</a>
+            <a href="/application-status">New Application</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1>Application Status</h1>
+
+        {% if applications %}
+        <table>
+            <tr>
+                <th>Patient Name</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            {% for app in applications %}
+            <tr>
+                <td>{{ app['name'] }}</td>
+                <td>{{ app['dob'] }}</td>
+                <td>{{ app['gender'] }}</td>
+                <td>{{ app['status'] }}</td>
+                <td>
+                    <a href="{{ url_for('update_status', app_id=loop.index0) }}">
+                        <button class="update-btn">Update Status</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>No applications found.</p>
+        {% endif %}
+    </div>
+
+    <footer>
+        &copy; 2024 Medical Assistant. All rights reserved.
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        h2 {
+            padding: 15px;
+            text-align: center;
+            background-color: #32b541;
+            color: white;
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .chat-box {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+background: linear-gradient(0deg, rgba(248,243,238,1) 71%, rgba(50,181,65,0.6475840336134453) 100%);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-message {
+            max-width: 70%;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 20px;
+            font-size: 16px;
+            line-height: 1.5;
+            word-wrap: break-word;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-message.bot {
+            background-color: #f8f3ee;
+            color: #333;
+            align-self: flex-start;
+        }
+
+        .chat-message.user {
+            background-color: #32b541;
+            color: white;
+            align-self: flex-end;
+            text-align: right;
+        }
+
+        .chat-message b {
+            color: #333;
+            font-weight: bold;
+        }
+
+        #chat-form {
+            display: flex;
+            padding: 15px;
+background: linear-gradient(180deg, rgba(248,243,238,1) 0%, rgba(50,181,65,0.4459033613445378) 63%);
+            border-top: 1px solid #cde8cd;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #b8d8b8;
+            border-radius: 20px;
+            font-size: 16px;
+            margin-right: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #77c277, #5ab95a);
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #5ab95a, #4da94d);
+        }
+
+        button#mic-button {
+            background: linear-gradient(135deg, #b3e3b3, #77c277);
+        }
+
+        button#mic-button:hover {
+            background: linear-gradient(135deg, #77c277, #5ab95a);
+        }
+
+        button#speak-bot-button {
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+        }
+
+        button#speak-bot-button:hover {
+            background: linear-gradient(135deg, #ff9900, #cc7a00);
+        }
+         #popup-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 300px;
+            z-index: 1000;
+        }
+
+        #popup-container h3 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        #popup-container button {
+            margin: 5px 0;
+            width: 100%;
+            padding: 10px;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            .chat-message {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            button,
+            #user-input {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="overlay"></div>
+    <div id="popup-container">
+        <h3>Do you want to submit or edit your application?</h3>
+        <button id="submit-button">Submit</button>
+        <button id="edit-button">Edit</button>
+    </div>
+    <div class="chat-container">
+        <h2>Welcome, {{ name }}! Your Patient ID: {{ patient_id }}</h2>
+        <div id="chat-box" class="chat-box">
+            <div class="chat-message bot">{{bot_response}}</div>
+        </div>
+        <form id="chat-form">
+            <input type="text" id="user-input" placeholder="Type your message here..." required>
+            <button type="submit">Send</button>
+            <button type="button" id="mic-button" title="Speak Now">🎤</button>
+            <button type="button" id="speak-bot-button" title="Enable Bot Voice">🔊</button> <!-- Speak Bot Button -->
+        </form>
+    </div>
+
+    <script>
+        const speakBotButton = document.getElementById('speak-bot-button');
+        const form = document.getElementById('chat-form');
+        const input = document.getElementById('user-input');
+        const chatBox = document.getElementById('chat-box');
+        const micButton = document.getElementById('mic-button');
+        const synth = window.speechSynthesis;
+        const popupContainer = document.getElementById('popup-container');
+        const overlay = document.getElementById('overlay');
+        const submitButton = document.getElementById('submit-button');
+        const editButton = document.getElementById('edit-button');
+
+        let recognition;
+        let voiceEnabled = true; // Initial state: voice output is enabled
+
+        // Function to toggle voice output
+        speakBotButton.addEventListener('click', () => {
+            voiceEnabled = !voiceEnabled; // Toggle the state
+            if (voiceEnabled) {
+                speakBotButton.style.backgroundColor = '#77c277'; // Green for enabled
+                speakBotButton.innerText = '🔊'; // Button text to indicate it’s active
+            } else {
+                speakBotButton.style.backgroundColor = '#f44336'; // Red for disabled
+                speakBotButton.innerText = '🔇'; // Button text to indicate it’s disabled
+            }
+        });
+
+        // Voice input functionality
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'en-GB';
+            recognition.interimResults = false;
+
+            micButton.addEventListener('click', () => {
+                recognition.start();
+            });
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                input.value = transcript;
+            };
+
+            recognition.onerror = (event) => {
+                alert('Sorry, I couldn’t understand your voice. Please try again.');
+            };
+        } else {
+            micButton.style.display = 'none';
+            alert('Voice input is not supported in your browser.');
+        }
+
+        // Form submission handling
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userMessage = input.value;
+            appendMessage('user', userMessage);
+            input.value = '';
+
+            const response = await fetch('/chatbot', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `message=${encodeURIComponent(userMessage)}`
+            });
+            const data = await response.json();
+            appendMessage('bot', data.bot_response);
+
+            // Only speak if the voice output is enabled
+            if (voiceEnabled) {
+                speakText(data.bot_response);
+            }
+        });
+
+        function appendMessage(sender, message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message', sender);
+
+            // Replace **text** with <b>text</b>
+            const formattedMessage = message.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+
+            messageDiv.innerHTML = formattedMessage; // Use innerHTML to allow bold formatting
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function speakText(text) {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-GB';
+            utterance.rate = 0.9; // Slightly slower for a soothing effect
+            utterance.pitch = 1.2; // Softer pitch
+            utterance.volume = 0.8; // Softer volume
+            synth.speak(utterance);
+        }
+         function showPopup() {
+        popupContainer.style.display = 'block';
+        overlay.style.display = 'block';
+    }
+
+    function hidePopup() {
+        popupContainer.style.display = 'none';
+        overlay.style.display = 'none';
+    }
+
+    submitButton.addEventListener('click', () => {
+        hidePopup();
+        window.location.href = '/success'; // Redirect to the success page
+    });
+
+    editButton.addEventListener('click', () => {
+        hidePopup();
+        alert('Edit your application!');
+    });
+    </script>
+</body>
+</html>

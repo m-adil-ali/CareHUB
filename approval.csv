@@ -1,0 +1,134 @@
+Patient_ID,Prescribed_Medication
+P.ID-88295,"**5. Patient Data and Review Summary:**
+
+* **Patient Data:**
+    * Name: Muhammad Umair Ramzan
+    * Age: 46
+    * Gender: Male
+    * Unique Patient ID: pid-76723
+
+* **Symptoms Summary:** Runny nose (thin, watery, constant), sore throat (painful, difficulty swallowing), cough.  Symptom duration: 4 days. Severity: 9/10.
+
+* **Diagnosis:** Likely Upper Respiratory Infection (URI), possibly a common cold.
+
+* **Medicine Recommendation:**  Rondec-C (or equivalent) as per product label instructions, or Hydryllin Syrup as an alternative if Rondec-C is unavailable or contraindicated.  Follow-up with a physician is advised for symptom monitoring and blood pressure management.
+
+* **Patient Data:**
+    * Name: Muhammad Umair Ramzan
+    * Age: 46
+    * Gender: Male
+    * Unique Patient ID: pid-76723
+
+* **Symptoms Summary:** Runny nose (thin, watery, constant), sore throat (painful, difficulty swallowing), cough.  Symptom duration: 4 days. Severity: 9/10.
+
+* **Diagnosis:** Likely Upper Respiratory Infection (URI), possibly a common cold.
+
+* **Medicine Recommendation:**  Rondec-C (or equivalent) as per product label instructions, or Hydryllin Syrup as an alternative if Rondec-C is unavailable or contraindicated.  Follow-up with a physician is advised for symptom monitoring and blood pressure management.
+* **Patient Data:**
+    * Name: Muhammad Umair Ramzan
+    * Age: 46
+    * Gender: Male
+    * Unique Patient ID: pid-76723
+
+* **Symptoms Summary:** Runny nose (thin, watery, constant), sore throat (painful, difficulty swallowing), cough.  Symptom duration: 4 days. Severity: 9/10.
+
+* **Diagnosis:** Likely Upper Respiratory Infection (URI), possibly a common cold.
+
+* **Medicine Recommendation:**  Rondec-C (or equivalent) as per product label instructions, or Hydryllin Syrup as an alternative if Rondec-C is unavailable or contraindicated.  Follow-up with a physician is advised for symptom monitoring and blood pressure management.
+* **Patient Data:**
+    * Name: Muhammad Umair Ramzan
+    * Age: 46
+    * Gender: Male
+    * Unique Patient ID: pid-76723
+
+* **Symptoms Summary:** Runny nose (thin, watery, constant), sore throat (painful, difficulty swallowing), cough.  Symptom duration: 4 days. Severity: 9/10.
+
+* **Diagnosis:** Likely Upper Respiratory Infection (URI), possibly a common cold.
+
+* **Medicine Recommendation:**  Rondec-C (or equivalent) as per product label instructions, or Hydryllin Syrup as an alternative if Rondec-C is unavailable or contraindicated.  Follow-up with a physician is advised for symptom monitoring and blood pressure management.
+"
+P.ID-99500,"**Date:** October 26, 2023
+
+**Doctor Review Report**
+
+**Patient Information:**
+
+* Name: Muhammad Umair Ramzan
+* Age: 25
+* Gender: Male
+* Patient ID: pid-99500
+
+**Symptoms Summary:**
+
+* Sharp, constant abdominal pain (8/10 severity)
+* Headache (5/10 severity), associated with abdominal pain
+* Changes in bowel movements (unspecified)
+* Symptom duration: 12 hours
+* Patient is diabetic.
+
+**Potential Diagnosis:**
+
+Based on the symptoms and similar cases, a differential diagnosis should consider:
+
+1. **Abdominal Issues:**  The high similarity scores (0.72) with cases involving abdominal pain strongly suggest this as a primary area of focus.  The unspecified bowel changes warrant further investigation to determine the nature of the issue (e.g., constipation, diarrhea, etc.).
+
+2. **Other possible conditions requiring further consideration**: While the similarity scores are lower,  the patient's symptoms partially overlap with conditions like hepatitis and malaria. However, given the higher similarity scores for abdominal pain, these should be considered secondary differential diagnoses at this time.
+
+
+**Similar Cases:**
+
+* **Case ID 12:** Similarity Score: 0.72, Diagnosis: Abdominal Issues, Medications: NO-SPA Forte, Age: 27
+* **Case ID 13:** Similarity Score: 0.72, Diagnosis: Abdominal Issues, Medications: Consult Doctor, Age: 6 (Note: Age difference significant)
+
+
+**Recommended Medication:**
+
+Given the high similarity to cases diagnosed with ""Abdominal Issues,"" and the patient's reported pain severity (8/10), I recommend starting with a trial of  **NO-SPA Forte** as in case ID 12, but only after careful consideration of possible side effects and contraindications, especially given the patient's diabetic status. Dosage should follow product instructions.  If there is no improvement or the pain worsens, an immediate consultation is recommended.  Analgesics such as Paracetamol/Acetaminophen may also be considered for pain management, but should not mask underlying issues.
+
+
+
+**Medical History:**
+
+No relevant medical history is reported beyond the patient being diabetic.  This information is crucial for treatment decisions and should be fully explored.
+
+**Additional Notes:**
+
+* The nature of the bowel changes needs to be clarified.
+* A thorough physical examination is necessary to determine the underlying cause of the abdominal pain.
+* Given the patient's age and the severity of pain, it's crucial to rule out serious conditions that could be responsible for the symptoms.
+* It would be beneficial to conduct relevant blood work such as complete blood counts (CBC) and liver function tests to explore other possibilities.
+
+This report should be used to inform clinical judgment, and should not be considered a substitute for a comprehensive medical evaluation.
+"
+P.ID-44965,"**Doctor Short Review**
+
+**Name:** Muhammad Adil Ali
+
+**Symptoms:** Abdominal cramping, bloating, 7/10 severity, onset 10 hours after eating fries.
+
+**Diagnosis:**  Possible gastritis or peptic ulcer disease.
+
+**Medication:**  Consider NO-SPA Forte (if peptic ulcer is suspected, rule out with endoscopy first) or antacids for gastritis.  Dosage and specific medication should be determined based on a full examination.
+"
+P.ID-35526,"**Doctor Short Review**
+
+**Name:** Syeda Pakeeza Batool Zaidi
+
+**Symptoms:** Constant fever with chills, constant sharp stomach pain (7/10 severity), low blood pressure.
+
+**Diagnosis:**  Possible viral infection or gastroenteritis.  Appendicitis and malaria less likely given symptom profile.
+
+**Medication:** Panadol (Paracetamol) for fever and pain management.  Monitor for worsening symptoms.
+"
+P.ID-54733,"**Doctor Short Review**
+
+**Date:** October 26, 2023
+
+**Patient Name:** Ahmad Ali
+
+**Symptoms:** Sore throat, dry cough, low-grade fever, runny nose (2 days duration, 7/10 severity).
+
+**Diagnosis:**  Likely viral upper respiratory infection (common cold or influenza).
+
+**Medication:** Panadol (Paracetamol) for fever and pain relief and Hydralin cough syrup for cough. Further investigation may be needed if symptoms worsen or persist.
+"

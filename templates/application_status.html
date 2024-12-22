@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Status</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('{{ url_for('static', filename='application_bg.png') }}');
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Header Styling */
+        h2 {
+            margin-top: 20px;
+            font-size: 24px; /* Reduced font size */
+            color: #2c3e50;
+        }
+
+        /* Container for Status */
+        .status-box {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        /* Status Paragraph */
+        .status-box p {
+            font-size: 18px; /* Reduced font size */
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+
+        /* Medication Section */
+        .medication-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            border: 1px solid #bdc3c7;
+            text-align: left;
+            font-size: 16px; /* Reduced font size */
+            line-height: 1.6;
+            overflow-y: auto;
+            max-height: 300px;
+            word-wrap: break-word;
+        }
+
+        /* Print Button Styling */
+        .print-btn {
+            margin-top: 20px;
+            background-color: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .print-btn:hover {
+            background-color: #2ecc71;
+        }
+
+        /* Bullet Points for Single * */
+        .bullet-points {
+            margin: 0;
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+
+        /* Print Content Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #print-content, #print-content * {
+                visibility: visible;
+            }
+
+            #print-content {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img class="logo" src="{{ url_for('static', filename='chat_carehub.png') }}" alt="Carehub Logo">
+            </a>
+        </div>
+    </nav>
+    <!-- Application Status -->
+    <div class="status-box">
+        <h2>Application Status</h2>
+        <p>Status: <strong>{{ application_status.status }}</strong></p>
+
+        <!-- Prescribed Medication Section -->
+        <div class="medication-box" id="print-content">
+            <ul id="medication-list" class="bullet-points"></ul>
+        </div>
+
+        <!-- Print Button -->
+        <button class="print-btn" onclick="printMedication()">Print Medication</button>
+    </div>
+
+    <script>
+        // Backend data placeholder: Injected into JavaScript
+        const prescribedMedication = `{{ application_status.prescribed_medication }}`;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const medicationList = document.getElementById('medication-list');
+            let content = prescribedMedication;
+
+            // Convert **text** to bold <strong>text</strong>
+            content = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+            // Split lines and convert *text* into bullet points
+            const bulletItems = content.split(/\n/).filter(line => line.trim() !== '');
+            bulletItems.forEach(item => {
+                if (item.includes('*')) {
+                    const bulletText = item.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = bulletText;
+                    medicationList.appendChild(listItem);
+                } else {
+                    const paragraph = document.createElement('p');
+                    paragraph.innerHTML = item;
+                    medicationList.appendChild(paragraph);
+                }
+            });
+        });
+
+        // Print Function: Print only the medication box
+        function printMedication() {
+            window.print();
+        }
+    </script>
+
+</body>
+</html>
